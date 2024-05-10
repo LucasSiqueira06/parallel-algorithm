@@ -6,8 +6,8 @@ import java.util.concurrent.CountDownLatch;
 
 public class BubbleSortParallel {
     public static void main(String[] args) {
-        int size = 150000;
-        int numThreads = 6;
+        int size = 200000;
+        int numThreads = 8;
 
         int[] array = generateRandomArray(size);
 
@@ -21,7 +21,7 @@ public class BubbleSortParallel {
 
         System.out.println("Time taken for sorting: " + timeTaken + " ms");
 
-        exportToCSV(size, numThreads, timeTaken);
+        exportToCSV(numThreads, timeTaken);
     }
 
     private static int[] generateRandomArray(int size) {
@@ -81,16 +81,16 @@ public class BubbleSortParallel {
         }
     }
 
-    private static void exportToCSV(int size, int numThreads, long timeTaken) {
+    private static void exportToCSV(int numThreads, long timeTaken) {
         String csvFile = "bubblesort_parallel_results.csv";
         File file = new File(csvFile);
         boolean append = file.exists();
         
         try (FileWriter writer = new FileWriter(csvFile, append)) {
             if (!append) {
-                writer.write("Array Size,Threads,Time taken (ms)\n");
+                writer.write("Threads,Time taken (ms)\n");
             }
-            writer.write(size + "," + numThreads + "," + timeTaken + "\n");
+            writer.write(numThreads + "," + timeTaken + "\n");
             System.out.println("Results exported to " + csvFile);
         } catch (IOException e) {
             e.printStackTrace();

@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class BubbleSortSerial {
     public static void main(String[] args) {
-        int size = 150000;
+        int size = 200000;
 
         int[] array = generateRandomArray(size);
 
