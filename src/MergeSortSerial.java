@@ -4,35 +4,54 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Random;
-// import AV2.CSVWriter;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 public class MergeSortSerial {
 
     public static void main(String[] args) {
         int numberOfReps = 50;
-        Random random = new Random();
-        int[] times = new int[numberOfReps];
-        int[] elements = new int[numberOfReps];
-        for (int x = 0; x < numberOfReps; x++) {
-            int numberOfElements = random.nextInt(100000); // Defina o número de elementos desejado
-            int[] array = new int[numberOfElements];
-            for (int i = 0; i < numberOfElements; i++) {
-                array[i] = random.nextInt(1000); // Gera números aleatórios de 0 a 99
+        int numberOfElements = 1000;
+
+        int[] times = new int[numberOfReps/10];
+        int contTimes = 0;
+        int[] elements = new int[numberOfReps/10];
+        int contElements = 0;
+        int[] media = new int[numberOfReps];
+
+        for (int i = 0; i <= numberOfReps; i++) {
+            int[] array = generateRandomArray(numberOfElements);
+            if ( i == 10 || i == 20 || i == 30 || i == 40 || i == 50) {
+                int soma = 0;
+                for (int j = i - 10; j < i; j++){
+                    System.out.println(j);
+                    soma += media[j];
+                    System.out.println(media[j]);
+                }
+                elements[contElements] = numberOfElements;
+                times[contTimes] = (int) soma/10;
+                contTimes++;
+                contElements++;
+                if (i == 10) {
+                    numberOfElements = 10000;
+                }else if (i == 20) {
+                    numberOfElements = 50000;
+                }else if (i == 30) {
+                    numberOfElements = 100000;
+                }else if (i == 40) {
+                    numberOfElements = 200000;
+                }
+                
             }
-            long startTime = System.nanoTime();
+            long startTime = System.currentTimeMillis();
             mergeSort(array);
-            long totalTime = System.nanoTime() - startTime;
-            times[x] = (int) totalTime;
-            elements[x] = (int) numberOfElements;
-            System.out.println("Array ordenado com merge sort serial em: " + totalTime + " nanosegundos");
+            long totalTime = System.currentTimeMillis() - startTime;
+            if (i < 50) { 
+                media[i] = (int) totalTime;
+            }
+            System.out.println("Array ordenado com merge sort serial em: " + totalTime + " milisegundos");
         }
 
-        generateCSV( "mergeSortSerial", times, elements, "Numeros", "Tempo");
+        generateCSV( "mergeSortSerial", elements, times, "Numeros", "Tempo");
     }
 
     public static void generateCSV( String fileName, int[] axisX, int[] axisY, String nameX, String nameY) {
@@ -51,6 +70,15 @@ public class MergeSortSerial {
         } catch (IOException e) {
             System.err.println("Erro ao escrever no arquivo CSV: " + e.getMessage());
         }
+    }
+
+    public static int[] generateRandomArray(int numberOfElements) {
+        int[] array = new int[numberOfElements];
+        Random random = new Random();
+        for (int i = 0; i < numberOfElements; i++) {
+            array[i] = random.nextInt(1000); // Gera números aleatórios de 0 a 99
+        }
+        return array;
     }
     
    public static void mergeSort(int[] array) {

@@ -37,7 +37,7 @@ class SelectionSortSerial {
 
         try (PrintWriter writer = new PrintWriter(new FileWriter(file, true))) {
             if (!fileExists) {
-                writer.println("Array Size,Time (ms)");
+                writer.println("Numeros,Time");
             }
             writer.println(size + "," + time);
         } catch (IOException e) {

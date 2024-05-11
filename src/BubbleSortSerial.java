@@ -9,13 +9,13 @@ public class BubbleSortSerial {
 
         int[] array = generateRandomArray(size);
 
-        long startTime = System.nanoTime();
+        long startTime = System.currentTimeMillis();
 
         bubbleSort(array);
 
-        long endTime = System.nanoTime();
+        long endTime = System.currentTimeMillis();
 
-        long timeTaken = (endTime - startTime) / 1000000;
+        long timeTaken = endTime - startTime;
 
         System.out.println("Time taken for sorting: " + timeTaken + " ms");
 
@@ -51,7 +51,7 @@ public class BubbleSortSerial {
         
         try (FileWriter writer = new FileWriter(csvFile, append)) {
             if (!append) {
-                writer.write("Array Size,Time taken (ms)\n");
+                writer.write("Tamanho,Time");
             }
             writer.write(size + "," + timeTaken + "\n");
             System.out.println("Results exported to " + csvFile);
