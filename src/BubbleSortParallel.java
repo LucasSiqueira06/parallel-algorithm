@@ -7,7 +7,7 @@ import java.util.concurrent.CountDownLatch;
 public class BubbleSortParallel {
     public static void main(String[] args) {
         int size = 200000;
-        int numThreads = 8;
+        int numThreads = 5;
 
         int[] array = generateRandomArray(size);
 
@@ -88,7 +88,7 @@ public class BubbleSortParallel {
         
         try (FileWriter writer = new FileWriter(csvFile, append)) {
             if (!append) {
-                writer.write("Threads,Time taken (ms)\n");
+                writer.write("Threads,Time");
             }
             writer.write(numThreads + "," + timeTaken + "\n");
             System.out.println("Results exported to " + csvFile);

@@ -7,7 +7,7 @@ class SelectionSortMultiThread {
 
     public static void main(String[] args) {
         int size = 200000;
-        int numThreads = 8;
+        int numThreads = 5;
 
         array = generateRandomArray(size);
 
@@ -38,7 +38,7 @@ class SelectionSortMultiThread {
 
         try (PrintWriter writer = new PrintWriter(new FileWriter(file, true))) {
             if (!fileExists) {
-                writer.println("Array Size,Threads,Time (ms)");
+                writer.println("Threads,Time");
             }
             writer.println(numThreads + "," + time);
         } catch (IOException e) {
